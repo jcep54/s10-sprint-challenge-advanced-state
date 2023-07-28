@@ -1,7 +1,6 @@
 // ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux'
-import { INPUT_CHANGE } from './action-types'
-import { inputChange } from './action-creators'
+import { INPUT_CHANGE, RESET_FORM} from './action-types'
 const initialWheelState = 0
 function wheel(state = initialWheelState, action) {
   return state
@@ -30,12 +29,12 @@ const initialFormState = {
 function form(state = initialFormState, action) {
   switch (action.type){
     case INPUT_CHANGE:
-      console.log('reducer ran')
       return {
         ...state,
         [action.payload.id]: action.payload.value
       }
-      
+    case RESET_FORM:
+      return state = initialFormState
     default:
       return state
   }
