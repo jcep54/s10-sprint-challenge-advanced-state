@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
-
-  const onChange = evt => {
-
+  const { inputChange, resetForm } = props;
+  const onChange = e => {
+    const { value, id } = e.target
+    inputChange(value,id)
   }
 
-  const onSubmit = evt => {
-
+  const onSubmit = e => {
+    e.preventDefault()
   }
 
   return (
@@ -23,4 +24,12 @@ export function Form(props) {
   )
 }
 
-export default connect(st => st, actionCreators)(Form)
+const mapStateToProps = state =>{
+  return {
+    newQuestion: state.form.newQuestion,
+    newTrueAnswer: state.form.newTrueAnswer,
+    newFalseAnswer: state.form.newFalseAnswer
+  }
+}
+
+export default connect(mapStateToProps, actionCreators)(Form)

@@ -1,4 +1,6 @@
 // ❗ You don't need to add extra action creators to achieve MVP
+import * as actionTypes from './action-types'
+const { INPUT_CHANGE } = actionTypes;
 export function moveClockwise() { }
 
 export function moveCounterClockwise() { }
@@ -9,7 +11,11 @@ export function setMessage() { }
 
 export function setQuiz() { }
 
-export function inputChange() { }
+export function inputChange(value, id) {
+  console.log('creator ran')
+  console.log(value,id)
+  return {type: INPUT_CHANGE, payload: {value,id}}
+ }
 
 export function resetForm() { }
 
