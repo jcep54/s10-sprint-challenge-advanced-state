@@ -1,9 +1,14 @@
 // ❗ You don't need to add extra action creators to achieve MVP
 import * as actionTypes from './action-types'
-const { INPUT_CHANGE, RESET_FORM} = actionTypes;
-export function moveClockwise() { }
+const { INPUT_CHANGE, RESET_FORM, MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE} = actionTypes;
+export function moveClockwise(ind) {
+  return{type:MOVE_CLOCKWISE, payload: ind}
+ }
 
-export function moveCounterClockwise() { }
+export function moveCounterClockwise(ind) { 
+
+  return{type:MOVE_COUNTERCLOCKWISE, payload: ind}
+}
 
 export function selectAnswer() { }
 
