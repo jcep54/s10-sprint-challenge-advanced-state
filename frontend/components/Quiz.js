@@ -6,9 +6,7 @@ export function Quiz(props) {
   const { fetchQuiz, quiz, selectAnswer, selectedAnswer, postAnswer} = props
   const answerOne = quiz? quiz.answers[0] : null;
   const answerTwo = quiz? quiz.answers[1] : null;
-  // useEffect(()=>{
-  //   fetchQuiz()
-  // },[])
+  const isDisabled = selectedAnswer? false: true;
   if(!quiz) 
     fetchQuiz(); 
   return (
@@ -21,14 +19,14 @@ export function Quiz(props) {
             <h2>{quiz.question}</h2>
 
             <div id="quizAnswers">
-              <div className="answer selected">
+              <div className={`answer ${selectedAnswer === answerOne.answer_id? 'selected': ''}`}>
                 {answerOne.text}
                 <button onClick={() =>selectAnswer(answerOne.answer_id)}>
                   {selectedAnswer === answerOne.answer_id? 'SELECTED': 'Select'}
                 </button>
               </div>
 
-              <div className="answer">
+              <div className={`answer ${selectedAnswer === answerTwo.answer_id? 'selected': ''}`}>
               {answerTwo.text}
 
                 <button onClick={()=>(selectAnswer(answerTwo.answer_id))}>
@@ -36,7 +34,7 @@ export function Quiz(props) {
                 </button>
               </div>
             </div>
-            <button id="submitAnswerBtn" onClick={()=>postAnswer(quiz.quiz_id,selectedAnswer)}>Submit answer</button>
+            <button id="submitAnswerBtn" onClick={()=>postAnswer(quiz.quiz_id,selectedAnswer)} disabled={isDisabled}>Submit answer</button>
 
           </>
         ) : 'Loading next quiz...'
