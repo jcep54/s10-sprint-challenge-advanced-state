@@ -6,9 +6,11 @@ export function Quiz(props) {
   const { fetchQuiz, quiz, selectAnswer, selectedAnswer, postAnswer} = props
   const answerOne = quiz? quiz.answers[0] : null;
   const answerTwo = quiz? quiz.answers[1] : null;
-  useEffect(()=>{
-    fetchQuiz()
-  },[])
+  // useEffect(()=>{
+  //   fetchQuiz()
+  // },[])
+  if(!quiz) 
+    fetchQuiz(); 
   return (
     <div id="wrapper">
       {

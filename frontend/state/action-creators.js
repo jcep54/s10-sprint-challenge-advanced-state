@@ -43,7 +43,8 @@ export function fetchQuiz() {
       dispatch(setQuiz(res.data))
     })
     .catch(err =>{
-      console.log(err)
+      console.error(err)
+      dispatch(setMessage(err.response.data.message))
     })
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
@@ -60,6 +61,7 @@ export function postAnswer(quizId, answerId) {
     })
     .catch(err =>{
       console.error(err)
+      dispatch(setMessage(err.response.data.message))
     })
     .finally(
       dispatch(fetchQuiz())
@@ -76,7 +78,13 @@ export function postQuiz(question, trueAnswer, falseAnswer) {
     axios.post('http://localhost:9000/api/quiz/new',{question_text:question, true_answer_text:trueAnswer, false_answer_text:falseAnswer})
     .then(res => 
       dispatch(setMessage(`Congrats: "${res.data.question}" is a great question!`)))
-    .catch()
+    .catch(err =>{
+      console.error(err)
+      dispatch(setMessage(err.response.data.message))
+    })
+    .finally(
+      dispatch(resetForm())
+    )
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form
