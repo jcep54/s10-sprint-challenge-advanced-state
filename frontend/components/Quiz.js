@@ -1,19 +1,22 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import { quizzes } from '../../backend/helpers'
 import { connect } from 'react-redux'
-import { fetchQuiz, selectAnswer } from '../state/action-creators'
+import { fetchQuiz, selectAnswer, postAnswer} from '../state/action-creators'
 export function Quiz(props) {
-  const { fetchQuiz, quiz, selectAnswer, selectedAnswer} = props
-  const answerOne = quiz.answers[0]
-  const answerTwo = quiz.answers[1]
-  console.log(selectedAnswer)
-
+  const { fetchQuiz, quiz, selectAnswer, selectedAnswer, postAnswer} = props
+  const answerOne = quiz? quiz.answers[0] : null;
+  const answerTwo = quiz? quiz.answers[1] : null;
+  console.log(quiz)
+  useEffect(()=>{
+    fetchQuiz()
+  },[])
   return (
     <div id="wrapper">
       {
       quiz ? (
         // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
           <>
+        
             <h2>{quiz.question}</h2>
 
             <div id="quizAnswers">
@@ -32,7 +35,7 @@ export function Quiz(props) {
                 </button>
               </div>
             </div>
-            <button id="submitAnswerBtn" onClick={fetchQuiz}>Submit answer</button>
+            <button id="submitAnswerBtn" onClick={()=>postAnswer(quiz.quiz_id,selectedAnswer)}>Submit answer</button>
 
           </>
         ) : 'Loading next quiz...'
@@ -47,4 +50,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {fetchQuiz, selectAnswer})(Quiz)
+export default connect(mapStateToProps, {fetchQuiz, selectAnswer, postAnswer})(Quiz)
