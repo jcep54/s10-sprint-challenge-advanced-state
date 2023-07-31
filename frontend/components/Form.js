@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
-  const { inputChange, resetForm } = props;
+  const { inputChange, postQuiz } = props;
   const onChange = e => {
     const { value, id } = e.target
     inputChange(value,id)
   }
   const onSubmit = e => {
     e.preventDefault()
-    resetForm()
+    postQuiz(props.newQuestion,props.newTrueAnswer,props.newFalseAnswer)
   }
 
   return (

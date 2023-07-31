@@ -6,7 +6,6 @@ export function Quiz(props) {
   const { fetchQuiz, quiz, selectAnswer, selectedAnswer, postAnswer} = props
   const answerOne = quiz? quiz.answers[0] : null;
   const answerTwo = quiz? quiz.answers[1] : null;
-  console.log(quiz)
   useEffect(()=>{
     fetchQuiz()
   },[])
