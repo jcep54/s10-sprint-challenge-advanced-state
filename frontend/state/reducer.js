@@ -1,6 +1,6 @@
 // ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux'
-import { INPUT_CHANGE, RESET_FORM, MOVE_CLOCKWISE,MOVE_COUNTERCLOCKWISE} from './action-types'
+import { INPUT_CHANGE, RESET_FORM, MOVE_CLOCKWISE,MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER} from './action-types'
 const initialWheelState = 0
 function wheel(state = initialWheelState, action) {
   switch(action.type){
@@ -14,14 +14,32 @@ function wheel(state = initialWheelState, action) {
   
 }
 
-const initialQuizState = null
+const initialQuizState = {
+  quiz_id: 2,
+  question: 'What is a closure?',
+  answers: [
+    { answer_id: 0, text: 'A function plus its bindings', correct: true },
+    { answer_id: 1, text: 'Clearly some kind of elephant', correct: false },
+  ],
+}
 function quiz(state = initialQuizState, action) {
-  return state
+  switch(action.type){
+    case SET_QUIZ_INTO_STATE:
+      return state = action.payload
+    default:
+      return state
+  }
+  
 }
 
 const initialSelectedAnswerState = null
 function selectedAnswer(state = initialSelectedAnswerState, action) {
-  return state
+  switch(action.type){
+    case SET_SELECTED_ANSWER:
+      return state = action.payload
+    default:
+      return state
+  }
 }
 
 const initialMessageState = ''
